@@ -4,32 +4,32 @@ from django.contrib.auth.models import User
 import time
 
 def signup(request):
-    return render(request, "signup.html")
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        c_password = request.POST.get('c_password')
 
+        # if password != c_password:
+        #     messages.info(request, "Password Mismatch!!")
+        #     # time.sleep(5)
+        #     return render(request, "signup.html")
+        # else:
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        emailid = request.POST.get('emailid')
 
-def register_user(request):
-    password = request.POST['password']
-    c_password = request.POST['c_password']
-
-    if password != c_password:
-        messages.info(request, "Password Mismatch!!")
+        # if User.objects.filter(email=emailid).exists():
+        #     messages.info(request, "Email already taken")
+        #     return redirect("signup")
+        # else:
+        user = User.objects.create_user(username=emailid, email=emailid, first_name=firstname, last_name=lastname, password=password)
+        user.save()
+        messages.info(request, "User Created successfully")
         time.sleep(5)
-        return redirect('signup')
-    else:
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        emailid = request.POST['emailid']
-
-        if User.objects.filter(email=emailid).exists:
-            messages.info(request, "Email already taken")
-            return redirect('register_user')
-        else:
-            user = User.objects.create_user(email=emailid, firstname=firstname, lastname=lastname, password=password)
-            user.save()
-            messages.info(request, "User Created successfully")
-            time.sleep(5)
         return redirect('thankyou')
-        
+
+    elif request.method == 'GET':
+        return render(request, "signup.html")
+
 
 
 def login(request):
@@ -37,7 +37,7 @@ def login(request):
 
 
 def thankyou(request):
-    return render(request, "thankyou.html")
+    return render(request, 'thankyou.html')
 
 def user_authentication(email, password):
     pass
