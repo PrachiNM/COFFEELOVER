@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'CoffeeLover.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'coffeelover',
-        'USER': 'root',
-        'PASSWORD': 'spanidea',
+        'NAME': 'COFFEELOVER',
+        'USER': 'prachi',
+        'PASSWORD': 'userprachi',
         'HOST': 'localhost',
-        'PORT': '3307'
+        'PORT': '3306'
     }
 }
 
@@ -128,6 +128,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
     ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
